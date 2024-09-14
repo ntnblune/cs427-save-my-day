@@ -23,7 +23,7 @@ public class Enemy_Stupid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Enemy_Stupid Update");
+        //Debug.Log("Enemy_Stupid Update");
         if (target != null){
             bool inShootingRange = Vector3.Distance(transform.position, target.position) <= shootingDistance;
             if (inShootingRange){
