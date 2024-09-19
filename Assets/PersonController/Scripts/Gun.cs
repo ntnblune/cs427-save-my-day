@@ -16,17 +16,20 @@ public class Gun : MonoBehaviour
     private bool isReloading = false;
     private float timeSinceLastFire = 0f;
     private Transform muzzle;
+    private Transform player;
     void Start()
     {
         PlayerShoot.inputShoot += Shoot; 
         PlayerShoot.inputReload += Reload;
         muzzle = transform.Find("Muzzle");  
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(muzzle.position, transform.forward * range, Color.green);
+        // rotate trans
+        Debug.DrawRay(muzzle.position, player.forward , Color.green);
         timeSinceLastFire += Time.deltaTime;
         if (isReloading){
             if (timeSinceLastFire >= reloadTime){
@@ -36,7 +39,7 @@ public class Gun : MonoBehaviour
         }
     }
     private bool canShoot(){
-        return !isReloading && timeSinceLastFire >= 1f/(fireRate/60f);
+        return !isReloading && timeSinceLastFire >= 1f/(fireRate/30);
     }
     void Shoot()
     {
@@ -45,7 +48,8 @@ public class Gun : MonoBehaviour
                 Debug.Log("Shoot");
                 currentAmmo--;
                 RaycastHit hit;
-                if (Physics.Raycast(muzzle.position, transform.forward, out hit, range))
+            
+                if (Physics.Raycast(muzzle.position, player.forward, out hit, range))
                 {
                     Debug.Log(hit.transform.name);
                     IDameable dameable = hit.transform.GetComponent<IDameable>();
