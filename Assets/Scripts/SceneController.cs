@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Manager : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
+    public static SceneController instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     [SerializeField] float loadDelay = 0.0f;
        public void LoadLevel()
     {
+        var audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManger>();
+        audioManager.StopMusic();
+        audioManager.PlaySFX(audioManager.introGame, 0.5f);
         StartCoroutine(WaitAndLoad("Level 0", loadDelay));
     }
 
