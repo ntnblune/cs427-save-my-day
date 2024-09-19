@@ -12,8 +12,8 @@ public class Target : MonoBehaviour, IDameable
     void Awake()
     {
         currentHealth = maxHealth;
-        _healthBar = GetComponentInChildren<HealthBar>();
-        _healthBar.SetHealth(currentHealth, maxHealth);
+//        _healthBar = GetComponentInChildren<HealthBar>();
+//        _healthBar.SetHealth(currentHealth, maxHealth);
     }
     public void TakeDame(float dame)
     {

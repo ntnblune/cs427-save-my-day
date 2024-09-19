@@ -7,7 +7,7 @@ public class PlayerInteract : MonoBehaviour
     // Start is called before the first frame update
     private Camera cam;
     [SerializeField]
-    private float distance = 5f;
+    private float distance = 1000f;
     [SerializeField] private LayerMask layerMask;
     void Start()
     {
