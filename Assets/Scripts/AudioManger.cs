@@ -16,6 +16,11 @@ public class AudioManger : MonoBehaviour
     [SerializeField] public AudioClip buttonClick;
     [SerializeField] public AudioClip shoot;
     [SerializeField] public AudioClip monsterdie;
+    [SerializeField] public AudioClip monsterattack;
+    [SerializeField] public AudioClip robot;
+    [SerializeField] public AudioClip winEffect;
+    [SerializeField] public AudioClip loseEffect;
+    [SerializeField] public AudioClip dieSFX;
     [SerializeField] public AudioClip step;
     [SerializeField] public AudioClip jump;
     [SerializeField] public AudioClip introGame;
@@ -62,4 +67,41 @@ public class AudioManger : MonoBehaviour
     {
         sfxSource.PlayOneShot(buttonClick);
     }
+    public void PlayShooting()
+    {
+        sfxSource.PlayOneShot(shoot);
+    }
+    public void PlayMonsterDie()
+    {
+        sfxSource.PlayOneShot(monsterdie);
+    }
+    public void PlayMonsterAttack()
+    {
+        sfxSource.PlayOneShot(monsterattack);
+    }
+    public void PlayRobot()
+    {
+        sfxSource.PlayOneShot(robot);
+    }
+    public void PlayWinEffect()
+    {
+        sfxSource.PlayOneShot(winEffect);
+    }
+    public void PlayLoseEffect()
+    {
+        sfxSource.PlayOneShot(loseEffect);
+    }
+    public void PlayDieSFX()
+    {
+        sfxSource.PlayOneShot(dieSFX);
+    }
+    public void PlayStep()
+    {
+        sfxSource.PlayOneShot(step);
+    }
+    public void PlayJump()
+    {
+        sfxSource.PlayOneShot(jump);
+    }
+
 }

@@ -12453,6 +12453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!1 &769308847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3810052597072727154, guid: 85b150a3ff8c94849a52eaab592f6068, type: 3}
@@ -25991,6 +25992,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4135013735270702863, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5393215578589016640, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Height
       value: 1
@@ -26017,7 +26022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5393215578589016642, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5393215578589016642, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_IsActive
@@ -26029,7 +26034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5420857361349278248, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: jump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: RotationSpeed
@@ -26045,7 +26050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228382, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Height
@@ -26924,6 +26929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!1 &1212753952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4091224641851508463, guid: 85b150a3ff8c94849a52eaab592f6068, type: 3}
@@ -27276,6 +27282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!64 &1254385095
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28805,6 +28812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!1 &1386254412 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5385023278911349385, guid: 85b150a3ff8c94849a52eaab592f6068, type: 3}
@@ -29384,6 +29392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!1001 &1444120788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33402,6 +33411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c522c055555464dacb81bba73c05f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!1 &1678143939 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1404105482024484068, guid: 85b150a3ff8c94849a52eaab592f6068, type: 3}
@@ -34213,6 +34223,11 @@ MonoBehaviour:
   buttonClick: {fileID: 8300000, guid: dcd230850b8bbd747b5579326b235e9f, type: 3}
   shoot: {fileID: 8300000, guid: 1c192fd05493784458b9746e91965d8e, type: 3}
   monsterdie: {fileID: 8300000, guid: 4e06f8f55aaef2d49ab6c6e6260f7fde, type: 3}
+  monsterattack: {fileID: 0}
+  robot: {fileID: 0}
+  winEffect: {fileID: 0}
+  loseEffect: {fileID: 0}
+  dieSFX: {fileID: 0}
   step: {fileID: 8300000, guid: 0b5091180af78784495a6a7520cba9be, type: 3}
   jump: {fileID: 8300000, guid: 0b5091180af78784495a6a7520cba9be, type: 3}
   introGame: {fileID: 8300000, guid: 8f0dc86152de59d46a3f904459ecc621, type: 3}

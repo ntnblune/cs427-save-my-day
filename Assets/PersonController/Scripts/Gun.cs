@@ -7,7 +7,6 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     public float dame = 10f;
     public float range = 100f;
-
     public int currentAmmo = 500;
     public int maxAmmo = 500;
 
@@ -17,6 +16,10 @@ public class Gun : MonoBehaviour
     private float timeSinceLastFire = 0f;
     private Transform muzzle;
     private Transform player;
+    void Awake()
+    {
+        // audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManager>();
+    }
     void Start()
     {
         PlayerShoot.inputShoot += Shoot; 
@@ -45,7 +48,7 @@ public class Gun : MonoBehaviour
     {
         if (currentAmmo > 0){
             if (canShoot()){
-                Debug.Log("Shoot");
+                // audioMananger.PlayShooting();
                 currentAmmo--;
                 RaycastHit hit;
             
