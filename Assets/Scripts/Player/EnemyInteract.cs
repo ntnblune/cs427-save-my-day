@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class EnemyInteract : Interactable
 {
-    protected override void Interact()
+    public int health = 100;
+    public override void Interact()
     {
-        Debug.Log("Interact with " + gameObject.name);
+        TakeDamage(40);
+    }
+
+    private void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     // Start is called before the first frame update
@@ -19,5 +29,10 @@ public class EnemyInteract : Interactable
     void Update()
     {
         
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

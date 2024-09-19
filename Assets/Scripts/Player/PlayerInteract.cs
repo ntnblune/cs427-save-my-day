@@ -9,16 +9,30 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private float distance = 1000f;
     [SerializeField] private LayerMask layerMask;
+    //[SerializeField] private PlayerGun Gun; 
+    [SerializeField] private ParticleSystem muzzleFlash;
     void Start()
     {
         // get camera in MainCamera object
         // the came in object name MainCamera
         cam = GameObject.Find("MainCamera").GetComponent<Camera>();
+        muzzleFlash = GameObject.Find("MuzzleFlash").GetComponent<ParticleSystem>();
+        muzzleFlash.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // if get mouse click
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnShoot();
+        }
+        
+    }
+
+    private void OnShoot(){
+        muzzleFlash.Play();
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
         RaycastHit hitInfo;
@@ -26,7 +40,8 @@ public class PlayerInteract : MonoBehaviour
         {
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
-                Debug.Log(hitInfo.collider.GetComponent<Interactable>().messageInteract);
+                hitInfo.collider.GetComponent<Interactable>().Interact();
+
             }
         }
     }

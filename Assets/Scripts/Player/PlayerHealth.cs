@@ -18,9 +18,7 @@ public class PlayerHealth : MonoBehaviour
     float fadespeed = 1.5f;
     float durationTimer;
     private Camera cameraShake;
-    private float shake = 0;
-    private float shakeAmount = 0.7f;
-    private float decreaseFactor = 1.0f;
+
     void Start()
     {
         health = maxHealth;
