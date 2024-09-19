@@ -1,23 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Target : MonoBehaviour, IDameable
+public class PlayerInformation : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 3f;
+    [SerializeField] private float maxHealth = 10f;
+    [SerializeField] private HealthBarMain _healthBar;
     private float currentHealth;
-    private HealthBar _healthBar;
+    public int currentPoint = 0;
     void Awake()
     {
         currentHealth = maxHealth;
-        _healthBar = GetComponentInChildren<HealthBar>();
+        currentPoint = 0;
         _healthBar.SetHealth(currentHealth, maxHealth);
     }
     public void TakeDame(float dame)
     {
-        currentHealth -= Random.Range(0.5f, 1.5f);
+        currentHealth -= Random.Range(0.5f, 1.5f) * dame;
         if (currentHealth <= 0)
         {
             // Instantiate(_deathEffect, transform.position, Quaternion.identity);
@@ -30,4 +29,3 @@ public class Target : MonoBehaviour, IDameable
         }
     }
 }
-

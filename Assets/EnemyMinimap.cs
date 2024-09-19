@@ -21,9 +21,5 @@ public class EnemyMinimap : MonoBehaviour
     }
 
     private void Update() {
-            // debug log sphere position
-            var sphere = enemies[0].transform.GetChild(1);
-            Debug.Log("Sphere" + sphere.position);
-            Debug.Log("Layer" + sphere.gameObject.layer);
     }
 }
