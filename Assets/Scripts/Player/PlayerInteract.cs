@@ -11,6 +11,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     //[SerializeField] private PlayerGun Gun; 
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private GameObject hitEffect;
     void Start()
     {
         // get camera in MainCamera object
@@ -18,6 +19,7 @@ public class PlayerInteract : MonoBehaviour
         cam = GameObject.Find("MainCamera").GetComponent<Camera>();
         muzzleFlash = GameObject.Find("MuzzleFlash").GetComponent<ParticleSystem>();
         muzzleFlash.Stop();
+        hitEffect = GameObject.Find("hitEffect");
     }
 
     // Update is called once per frame
@@ -43,6 +45,9 @@ public class PlayerInteract : MonoBehaviour
                 hitInfo.collider.GetComponent<Interactable>().Interact();
 
             }
+            GameObject impact = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            Destroy(impact, 2f);
+
         }
     }
 }
