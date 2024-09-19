@@ -8,6 +8,7 @@ public class PlayerInteract : MonoBehaviour
     private Camera cam;
     [SerializeField]
     private float distance = 1000f;
+    [SerializeField] private float forces = 500f;
     [SerializeField] private LayerMask layerMask;
     //[SerializeField] private PlayerGun Gun; 
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -30,7 +31,6 @@ public class PlayerInteract : MonoBehaviour
         {
             OnShoot();
         }
-        
     }
 
     private void OnShoot(){
@@ -43,7 +43,14 @@ public class PlayerInteract : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 hitInfo.collider.GetComponent<Interactable>().Interact();
+            }
+            // add forces
+            // make it backward when hit
 
+            if (hitInfo.rigidbody != null)
+            {
+                hitInfo.rigidbody.AddForce(-hitInfo.normal * forces);
+                //hitInfo.rigidbody.AddForce(-cam.transform.forward * forces * Time.deltaTime);
             }
             GameObject impact = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(impact, 2f);

@@ -19,6 +19,9 @@ public class PlayerHealth : MonoBehaviour
     float durationTimer;
     private Camera cameraShake;
 
+    private float lastTimeTookDamage;
+    private float timeToNextTakeDamage = 2.0f;
+
     void Start()
     {
         health = maxHealth;
@@ -39,6 +42,12 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateUI();
+        // if health < 30 then always show blood screen
+        if (health < 30)
+        {
+            bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 1);
+        }
+
         if (bloodScreen.color.a > 0)
         {
             durationTimer += Time.deltaTime;
@@ -48,8 +57,9 @@ public class PlayerHealth : MonoBehaviour
                 alpha -= fadespeed * Time.deltaTime;
                 bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, alpha);
             }
-
         }
+
+
 
 
     }
@@ -63,6 +73,12 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        
+        if (Time.time - lastTimeTookDamage < timeToNextTakeDamage)
+        {
+            return;
+        }
+        lastTimeTookDamage = Time.time;
 
         health -= damage;
         Debug.Log(health);
