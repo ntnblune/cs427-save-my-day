@@ -33,9 +33,13 @@ public class PlayerHealth : MonoBehaviour
 
     private SceneController sceneController;
     private GameObject scoreboardEndGame;
+    private ScoreManager scoreManager;
 
     void Awake()
     {
+        scoreManager = FindObjectOfType<ScoreManager>();
+        // log the current level
+        Debug.Log("Current level: " + scoreManager.currentLevelPlayed);
         currentHealth = maxHealth;
         // Image in the object name Blood
         healthBarMain = GameObject.Find("HealthBarMain").GetComponent<HealthBarMain>();
@@ -91,9 +95,13 @@ public class PlayerHealth : MonoBehaviour
         }
 
         GameObject.Find("CanvasGameEnd/Score").GetComponent<Text>().text = "Score: " + GameObject.Find("ScoreBoard/Text").GetComponent<Text>().text;
+
         // if press enter then load main menu
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            scoreManager.AddScore(scoreManager.currentLevelPlayed, numberOfLives);
+        // tip is the score of scorebar
+            scoreManager.AddTip(int.Parse(GameObject.Find("ScoreBoard/Text").GetComponent<Text>().text));
             // release cursos lock
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -107,7 +115,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            TakeDamage(10);
+            TakeDamage(15);
         }
 
         if (isWin() || isGameOver())

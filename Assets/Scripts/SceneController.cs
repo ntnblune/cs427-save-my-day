@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     // public static SceneController instance;
+    private ScoreManager scoreManager;
     private void Awake()
     {
+        Debug.Log("SceneController Awake");
+        scoreManager = FindObjectOfType<ScoreManager>();
         // if (instance == null)
         // {
         //     instance = this;
@@ -19,13 +22,13 @@ public class SceneController : MonoBehaviour
         // }
     }
     [SerializeField] float loadDelay = 0.0f;
-       public void LoadLevel()
-    {
-        var audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManger>();
-        audioManager.StopMusic();
-        audioManager.PlaySFX(audioManager.introGame, 0.5f);
-        StartCoroutine(WaitAndLoad("Level 1", loadDelay));
-    }
+    //    public void LoadLevel()
+    // {
+    //     var audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManger>();
+    //     audioManager.StopMusic();
+    //     audioManager.PlaySFX(audioManager.introGame, 0.5f);
+    //     StartCoroutine(WaitAndLoad("Level 1", loadDelay));
+    // }
 
     public void LoadMainMenu()
     {StartCoroutine(WaitAndLoad("GameStart", loadDelay));
@@ -36,7 +39,16 @@ public class SceneController : MonoBehaviour
         StartCoroutine(WaitAndLoad("Select level", loadDelay));
     }
 
+    public void LoadLevel(string name)
+    {
 
+        int level = int.Parse(name);
+        scoreManager.updateCurrentLevel(level);
+        var audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManger>();
+        audioManager.StopMusic();
+        audioManager.PlaySFX(audioManager.introGame, 0.5f);
+        StartCoroutine(WaitAndLoad("Level " + name, loadDelay));
+    }
     public void QuitGame()
     {
         Debug.Log("Quitting Game...");
