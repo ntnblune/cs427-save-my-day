@@ -26,9 +26,43 @@ public class AudioManger : MonoBehaviour
     [SerializeField] public AudioClip introGame;
     [SerializeField] private GameObject player;
 
+    private static AudioManger instance;
+    public static AudioManger Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<AudioManger>();
+                if (instance == null)
+                {
+                    instance = new GameObject("AudioManager", typeof(AudioManger)).GetComponent<AudioManger>();
+                }
+            }
+            return instance;
+        }
+        private set
+        {
+            instance = value;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            musicSource.clip = uiBackground;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
-        musicSource.clip = uiBackground;
+        
         if (isMusicOn)
         {
             musicSource.Play();

@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public static SceneController instance;
+    // public static SceneController instance;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // if (instance == null)
+        // {
+        //     instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
     }
     [SerializeField] float loadDelay = 0.0f;
        public void LoadLevel()
@@ -28,13 +28,12 @@ public class SceneController : MonoBehaviour
     }
 
     public void LoadMainMenu()
-    {
-        SceneManager.LoadScene("Menu");
+    {StartCoroutine(WaitAndLoad("Menu", loadDelay));
     }
 
     public void LoadMapSelect()
     {
-        SceneManager.LoadScene("Select Level");
+        StartCoroutine(WaitAndLoad("Select level", loadDelay));
     }
 
     public void LoadGameOver()
