@@ -1,6 +1,6 @@
 # SaveMyDay - Angry Vegetables
  3D Game Project using Unity 
- [Demo video]([url](https://www.youtube.com/watch?v=PIjjRZVwjpE))
+ [Demo video](https://www.youtube.com/watch?v=PIjjRZVwjpE)
 * 21125030 - Hoang Nhu Vinh
 * 21125034 - Nguyen Truc Nhu Binh
 
