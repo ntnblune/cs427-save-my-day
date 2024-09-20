@@ -27,12 +27,8 @@ public class SceneController : MonoBehaviour
         StartCoroutine(WaitAndLoad("Level 1", loadDelay));
     }
 
-    public void LoadGameEnd(){
-        StartCoroutine(WaitAndLoad("GameEnd", loadDelay));
-    }
-
     public void LoadMainMenu()
-    {StartCoroutine(WaitAndLoad("Menu", loadDelay));
+    {StartCoroutine(WaitAndLoad("GameStart", loadDelay));
     }
 
     public void LoadMapSelect()
@@ -40,10 +36,6 @@ public class SceneController : MonoBehaviour
         StartCoroutine(WaitAndLoad("Select level", loadDelay));
     }
 
-    public void LoadGameOver()
-    {
-        StartCoroutine(WaitAndLoad("GameOver", loadDelay));
-    }
 
     public void QuitGame()
     {

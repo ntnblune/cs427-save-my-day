@@ -62,6 +62,11 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
+    public bool isGhost()
+    {
+        return numberOfLives <= 0;
+    }
+
     void showScoreboardEndGame()
     {
         scoreboardEndGame.SetActive(true);
@@ -84,13 +89,18 @@ public class PlayerHealth : MonoBehaviour
         }
 
         GameObject.Find("CanvasGameEnd/Score").GetComponent<Text>().text = "Score: " + GameObject.Find("ScoreBoard/Text").GetComponent<Text>().text;
+        // if press enter then load main menu
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            sceneController.LoadMapSelect();
+        }
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            TakeDamage(1);
+            TakeDamage(3);
         }
 
         if (isWin() || isGameOver())
@@ -148,7 +158,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        
+        if (isGhost())
+        {
+            return;
+        }
         if (Time.time - lastTimeTookDamage < timeToNextTakeDamage)
         {
             return;
@@ -221,6 +234,7 @@ public class PlayerHealth : MonoBehaviour
         {
             // Game Over
             Debug.Log("Game Over");
+            playerTransform.position = new Vector3(33.68f, 0, 24.32f);
             //audioManager.PlayMonsterDie();
          //Destroy(gameObject);
         }

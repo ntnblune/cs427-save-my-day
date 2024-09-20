@@ -62,6 +62,10 @@ public class EnemyInteract : Interactable
     {
         audioManager.PlayMonsterDie();
         Destroy(gameObject);
+        if (player.GetComponent<PlayerHealth>().isGhost())
+        {
+            return;
+        }
         scorebar.GetComponent<Scorebar>().UpdateScore(10);
         player.GetComponent<PlayerHealth>().updateNumEnemies();
     }
