@@ -24,7 +24,7 @@ public class SceneController : MonoBehaviour
         var audioManager = GameObject.FindGameObjectsWithTag("Audio")[0].GetComponent<AudioManger>();
         audioManager.StopMusic();
         audioManager.PlaySFX(audioManager.introGame, 0.5f);
-        StartCoroutine(WaitAndLoad("Level 0", loadDelay));
+        StartCoroutine(WaitAndLoad("Level 1", loadDelay));
     }
 
     public void LoadMainMenu()
