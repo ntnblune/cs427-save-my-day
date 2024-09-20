@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public float speed = 2f;
     HealthBarMain healthBarMain;
     public Image bloodScreen;
-
+    private PauseMenu pauseMenu;
     public Image healScreen;
 
     float duration = 2.0f;
@@ -67,6 +67,9 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
 
+        numberLivesImage = GameObject.Find("Stars").GetComponent<Image>();
+        //
+        pauseMenu = FindObjectOfType<PauseMenu>(includeInactive: true);
     }
 
     public bool isGhost()
@@ -129,6 +132,12 @@ public class PlayerHealth : MonoBehaviour
         if (isDead())
         {
             Die();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseMenu.Pause();
         }
 
 
