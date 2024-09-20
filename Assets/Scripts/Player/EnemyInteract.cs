@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ilumisoft.HealthSystem.UI;
 using UnityEngine;
 
 public class EnemyInteract : Interactable
 {
-    public int health = 100;
+    public float currentHealth;
+    public float maxHealth = 5;
+    private HealthBarMonster healthbar;
 
     [SerializeField] private GameObject player;
 
@@ -12,15 +15,16 @@ public class EnemyInteract : Interactable
      [SerializeField] private GameObject scorebar;
     public override void Interact()
     {
-        TakeDamage(10);
+        TakeDamage(1);
         // make effect when player interact with enemy
 
     }
 
     private void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage * Random.Range(0.5f, 1.5f);
+        healthbar.SetHealth(maxHealth, currentHealth);
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -29,10 +33,12 @@ public class EnemyInteract : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         messageInteract = "Enemy";   
         player = GameObject.Find("Player");
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
         scorebar = GameObject.Find("ScoreBoard/Text");
+        healthbar = GetComponentInChildren<HealthBarMonster>();
     }
 
     // Update is called once per frame

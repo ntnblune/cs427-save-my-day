@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class HealthBarMonster : MonoBehaviour
 {
     Image _healthBar;
     private Camera _camera;

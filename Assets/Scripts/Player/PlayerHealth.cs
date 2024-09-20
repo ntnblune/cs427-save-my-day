@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float health;
+    private float currentHealth;
     private float timer;
-    public float maxHealth = 100;
+    public float maxHealth = 10;
     public float speed = 2f;
-
-    public Image healthBar;
+    HealthBarMain healthBarMain;
     public Image bloodScreen;
 
     public Image healScreen;
@@ -30,9 +29,9 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        health = maxHealth;
+        currentHealth = maxHealth;
         // Image in the object name Blood
-        healthBar = GameObject.Find("Blood").GetComponent<Image>();
+        healthBarMain = GameObject.Find("HealthBarMain").GetComponent<HealthBarMain>();
         healScreen = GameObject.Find("HealEffect").GetComponent<Image>();
         bloodScreen = GameObject.Find("DameEffect").GetComponent<Image>();
         //cameraShake = GameObject.Find("MainCamera").GetComponent<Camera>();
@@ -46,15 +45,13 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health = Mathf.Clamp(health, 0, maxHealth);
         if (Input.GetKeyDown(KeyCode.J))
         {
-            TakeDamage(10);
+            TakeDamage(1);
         }
 
-        UpdateUI();
-        // if health < 30 then always show blood screen
-        if (health < 30)
+        // if currentHealth < 30 then always show blood screen
+        if (currentHealth / maxHealth < 0.3)
         {
             bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 1);
         }
@@ -84,9 +81,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateUI()
     {
-
-        healthBar.fillAmount = 1 - health / maxHealth;
-
+        healthBarMain.SetHealth(currentHealth, maxHealth);
     }
 
     public void TakeDamage(float damage)
@@ -99,14 +94,14 @@ public class PlayerHealth : MonoBehaviour
         timeToNextTakeDamage = 2.0f;
         lastTimeTookDamage = Time.time;
         audioManager.PlayMonsterAttack();
-        health -= damage;
-        Debug.Log(health);
-        if (health >= 30){
+        currentHealth -= damage * Random.Range(0.8f, 1.2f);
+        healthBarMain.SetHealth(maxHealth, currentHealth);
+        if (currentHealth / maxHealth >= 0.3){
             durationTimer = 0;
             bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 1);
         }
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -136,7 +131,7 @@ public class PlayerHealth : MonoBehaviour
         if (numberOfLives > 0)
         {
             numberOfLives--;
-            health = maxHealth;
+            // currentHealth = maxHealth;
             timeToNextTakeDamage = 6.0f;
             healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 1);
             redisplayLifes();

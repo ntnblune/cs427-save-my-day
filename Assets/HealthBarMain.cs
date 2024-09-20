@@ -8,6 +8,7 @@ public class HealthBarMain : MonoBehaviour
     Image _healthBar;
     void Awake()
     {
+        // find child with name Blood
         _healthBar = transform.Find("Blood").GetComponent<Image>();
     }
 
