@@ -27,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
     private int numberOfLives = 3;
     private Image numberLivesImage;
 
+    private Transform playerTransform;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -39,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 0);
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
         numberLivesImage = GameObject.Find("Stars").GetComponent<Image>();
-
+        playerTransform = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -77,6 +79,12 @@ public class PlayerHealth : MonoBehaviour
                 bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, alpha);
             }
         }
+    }
+
+    bool isDead()
+    {
+        // y corodinate of player is less than -100
+        return currentHealth <= 0 || playerTransform.position.y < -100;
     }
 
     public void UpdateUI()
@@ -136,6 +144,8 @@ public class PlayerHealth : MonoBehaviour
             healthBarMain.SetHealth(maxHealth, currentHealth);
             timeToNextTakeDamage = 6.0f;
             healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 1);
+            // spawn player at the start position
+            playerTransform.position = new Vector3(33.68f, 0, 24.32f);
             redisplayLifes();
         }
         else
