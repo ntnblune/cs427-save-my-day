@@ -15,3 +15,5 @@ As the player fights through various sections of the lab, collecting data and ba
 * Kit by Kenney 
 * Freepik
 * Unity assets store
+* Pixabay
+* Music from: Science Lab - Pixel Gun 3D Soundtrack
