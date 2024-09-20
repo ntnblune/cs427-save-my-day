@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
     private SceneController sceneController;
     private GameObject scoreboardEndGame;
     private ScoreManager scoreManager;
-
+    public Vector3 startPosition;
     void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
@@ -58,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
         sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         scoreboardEndGame = GameObject.Find("CanvasGameEnd");
 
+        startPosition = playerTransform.position;
         scoreboardEndGame.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -242,14 +243,14 @@ public class PlayerHealth : MonoBehaviour
             timeToNextTakeDamage = 6.0f;
             healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 1);
             // spawn player at the start position
-            playerTransform.position = new Vector3(33.68f, 0, 24.32f);
+            playerTransform.position = startPosition;
             redisplayLifes();
         }
         else
         {
             // Game Over
             Debug.Log("Game Over");
-            playerTransform.position = new Vector3(33.68f, 0, 24.32f);
+            playerTransform.position = startPosition;
             //audioManager.PlayMonsterDie();
          //Destroy(gameObject);
         }
