@@ -39,7 +39,7 @@ public class EnemyInteract : Interactable
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
         scorebar = GameObject.Find("ScoreBoard/Text");
         healthbar = GetComponentInChildren<HealthBarMonster>();
-        healthbar.SetHealth(maxHealth, currentHealth);
+        //healthbar.SetHealth(maxHealth, currentHealth);
     }
 
     // Update is called once per frame

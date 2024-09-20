@@ -131,7 +131,9 @@ public class PlayerHealth : MonoBehaviour
         if (numberOfLives > 0)
         {
             numberOfLives--;
-            // currentHealth = maxHealth;
+            currentHealth = maxHealth;
+            
+            healthBarMain.SetHealth(maxHealth, currentHealth);
             timeToNextTakeDamage = 6.0f;
             healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 1);
             redisplayLifes();
