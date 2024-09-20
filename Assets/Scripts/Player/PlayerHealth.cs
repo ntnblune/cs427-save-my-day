@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
     public Image bloodScreen;
 
+    public Image healScreen;
+
     float duration = 2.0f;
     float fadespeed = 1.5f;
     float durationTimer;
@@ -21,15 +23,24 @@ public class PlayerHealth : MonoBehaviour
 
     private float lastTimeTookDamage;
     private float timeToNextTakeDamage = 2.0f;
+    private AudioManger audioManager;
+
+    private int numberOfLives = 3;
+    private Image numberLivesImage;
 
     void Start()
     {
         health = maxHealth;
         // Image in the object name Blood
         healthBar = GameObject.Find("Blood").GetComponent<Image>();
+        healScreen = GameObject.Find("HealEffect").GetComponent<Image>();
         bloodScreen = GameObject.Find("DameEffect").GetComponent<Image>();
         //cameraShake = GameObject.Find("MainCamera").GetComponent<Camera>();
         bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 0);
+        healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 0);
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
+        numberLivesImage = GameObject.Find("Stars").GetComponent<Image>();
+
     }
 
     // Update is called once per frame
@@ -48,6 +59,17 @@ public class PlayerHealth : MonoBehaviour
             bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 1);
         }
 
+        if (healScreen.color.a > 0)
+        {
+            timer += Time.deltaTime;
+            if (timer > duration)
+            {
+                float alpha = healScreen.color.a;
+                alpha -= fadespeed * Time.deltaTime;
+                healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, alpha);
+            }
+        }
+
         if (bloodScreen.color.a > 0)
         {
             durationTimer += Time.deltaTime;
@@ -58,10 +80,6 @@ public class PlayerHealth : MonoBehaviour
                 bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, alpha);
             }
         }
-
-
-
-
     }
 
     public void UpdateUI()
@@ -78,8 +96,9 @@ public class PlayerHealth : MonoBehaviour
         {
             return;
         }
+        timeToNextTakeDamage = 2.0f;
         lastTimeTookDamage = Time.time;
-
+        audioManager.PlayMonsterAttack();
         health -= damage;
         Debug.Log(health);
         if (health >= 30){
@@ -89,7 +108,46 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            //Die();
+            Die();
         }
+    }
+
+    void redisplayLifes(){
+
+        // change source image to display
+        switch (numberOfLives)
+        {
+            case 3:
+                numberLivesImage.sprite = Resources.Load<Sprite>("3-3");
+                break;
+            case 2:
+                numberLivesImage.sprite = Resources.Load<Sprite>("2-3");
+                break;
+            case 1:
+                numberLivesImage.sprite = Resources.Load<Sprite>("1-3");
+                break;
+            default:
+                numberLivesImage.sprite = Resources.Load<Sprite>("0-3");
+                break;
+        }
+    }
+    private void Die()
+    {
+        if (numberOfLives > 0)
+        {
+            numberOfLives--;
+            health = maxHealth;
+            timeToNextTakeDamage = 6.0f;
+            healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 1);
+            redisplayLifes();
+        }
+        else
+        {
+            // Game Over
+            Debug.Log("Game Over");
+            //audioManager.PlayMonsterDie();
+         //Destroy(gameObject);
+        }
+
     }
 }

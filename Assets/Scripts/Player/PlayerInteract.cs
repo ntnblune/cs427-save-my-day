@@ -13,6 +13,8 @@ public class PlayerInteract : MonoBehaviour
     //[SerializeField] private PlayerGun Gun; 
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject hitEffect;
+    // audio manager script to play sound
+    private AudioManger audioManager;
     void Start()
     {
         // get camera in MainCamera object
@@ -21,6 +23,7 @@ public class PlayerInteract : MonoBehaviour
         muzzleFlash = GameObject.Find("MuzzleFlash").GetComponent<ParticleSystem>();
         muzzleFlash.Stop();
         hitEffect = GameObject.Find("hitEffect");
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
     }
 
     // Update is called once per frame
@@ -34,6 +37,7 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void OnShoot(){
+        audioManager.PlayShooting();
         muzzleFlash.Play();
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
@@ -43,6 +47,7 @@ public class PlayerInteract : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 hitInfo.collider.GetComponent<Interactable>().Interact();
+
             }
             // add forces
             // make it backward when hit

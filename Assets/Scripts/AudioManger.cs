@@ -24,6 +24,7 @@ public class AudioManger : MonoBehaviour
     [SerializeField] public AudioClip step;
     [SerializeField] public AudioClip jump;
     [SerializeField] public AudioClip introGame;
+    [SerializeField] private GameObject player;
 
     private void Start()
     {
@@ -32,6 +33,17 @@ public class AudioManger : MonoBehaviour
         {
             musicSource.Play();
         }
+        player = GameObject.Find("Player");
+    }
+    //private Vector3 previousPosition;
+    void Update()
+    {
+        // if change the y position of player then play the step sound
+        // if (player.transform.position.y != previousPosition.y)
+        // {
+        //     PlayStep();
+        // }
+        // previousPosition = player.transform.position;
     }
 
     public void StopMusic()
