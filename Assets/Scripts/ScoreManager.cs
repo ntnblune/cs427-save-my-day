@@ -64,7 +64,7 @@ public class ScoreManager : MonoBehaviour
     int score;
     int tip;
     [SerializeField] public
-    int numberOfLevels = 2;
+    int numberOfLevels = 5;
     // storage score of all level but dont know how many level
     public int[] scoreLevels = new int[100];
     public int [] maxScore = new int[100];

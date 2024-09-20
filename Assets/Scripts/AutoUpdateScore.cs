@@ -38,6 +38,16 @@ public class AutoUpdateScore : MonoBehaviour
 
     }
 
+    public void resetAll()
+    {
+        scoreManager.resetAll();
+        for (int i = 0; i < numberOfUnlockLevel; i++)
+        {
+            levelManagerText[i].text = (i + 1).ToString();
+            levelManagerImage[i].sprite = Resources.Load<Sprite>("0-3");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {   
