@@ -10,7 +10,7 @@ public class AutoUpdateScore : MonoBehaviour
     private ScoreManager scoreManager;
     private Text[] levelManagerText = new Text[15];
     private Image[] levelManagerImage = new Image[15];
-    int numberOfUnlockLevel = 2;
+    int numberOfUnlockLevel = 5;
     void Start()
     {
         scoreText = GameObject.Find("Canvas/Star/Text").GetComponent<Text>();

@@ -31,7 +31,7 @@ public class SceneController : MonoBehaviour
     // }
 
     public void LoadMainMenu()
-    {StartCoroutine(WaitAndLoad("GameStart", loadDelay));
+    {StartCoroutine(WaitAndLoad("StartGame", loadDelay));
     }
 
     public void LoadMapSelect()

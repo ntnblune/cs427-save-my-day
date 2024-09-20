@@ -9,8 +9,11 @@ public class ScoreManager : MonoBehaviour
     int yourSecretID = 221003;
     private void Awake()
     {
+        numberOfLevels = 5;
+        currentLevelPlayed = 1;
         if (instance == null)
         {
+
             instance = this;
             score = 0;
             tip = 0;
