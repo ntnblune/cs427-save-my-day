@@ -39,6 +39,7 @@ public class EnemyInteract : Interactable
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
         scorebar = GameObject.Find("ScoreBoard/Text");
         healthbar = GetComponentInChildren<HealthBarMonster>();
+        healthbar.SetHealth(maxHealth, currentHealth);
     }
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class EnemyInteract : Interactable
         // if touch player then take damage for player
         if (Vector3.Distance(player.transform.position, transform.position) < 1.5f)
         {
-            player.GetComponent<PlayerHealth>().TakeDamage(20);
+            player.GetComponent<PlayerHealth>().TakeDamage(2);
         }
     }
 
