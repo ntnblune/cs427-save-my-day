@@ -55,6 +55,8 @@ public class PlayerHealth : MonoBehaviour
         scoreboardEndGame = GameObject.Find("CanvasGameEnd");
 
         scoreboardEndGame.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Start()
@@ -92,6 +94,11 @@ public class PlayerHealth : MonoBehaviour
         // if press enter then load main menu
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            // release cursos lock
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+
             sceneController.LoadMapSelect();
         }
     }
@@ -100,7 +107,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            TakeDamage(3);
+            TakeDamage(10);
         }
 
         if (isWin() || isGameOver())
