@@ -13,8 +13,13 @@ public class EnemyInteract : Interactable
 
      private AudioManger audioManager;
      [SerializeField] private GameObject scorebar;
+     bool isDead = false;
     public override void Interact()
     {
+        if (isDead)
+        {
+            return;
+        }
         TakeDamage(1);
         // make effect when player interact with enemy
 
@@ -24,8 +29,9 @@ public class EnemyInteract : Interactable
     {
         currentHealth -= damage * Random.Range(0.5f, 1.5f);
         healthbar.SetHealth(maxHealth, currentHealth);
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead)
         {
+            isDead = true;
             Die();
         }
     }
@@ -55,8 +61,8 @@ public class EnemyInteract : Interactable
     private void Die()
     {
         audioManager.PlayMonsterDie();
-        if (scorebar != null)
-        scorebar.GetComponent<Scorebar>().UpdateScore(10);
         Destroy(gameObject);
+        scorebar.GetComponent<Scorebar>().UpdateScore(10);
+        player.GetComponent<PlayerHealth>().updateNumEnemies();
     }
 }

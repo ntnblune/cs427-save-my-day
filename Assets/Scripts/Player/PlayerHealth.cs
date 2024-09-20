@@ -29,7 +29,12 @@ public class PlayerHealth : MonoBehaviour
 
     private Transform playerTransform;
 
-    void Start()
+    public int numEnemies = 0;
+
+    private SceneController sceneController;
+    private GameObject scoreboardEndGame;
+
+    void Awake()
     {
         currentHealth = maxHealth;
         // Image in the object name Blood
@@ -40,10 +45,46 @@ public class PlayerHealth : MonoBehaviour
         bloodScreen.color = new Color(bloodScreen.color.r, bloodScreen.color.g, bloodScreen.color.b, 0);
         healScreen.color = new Color(healScreen.color.r, healScreen.color.g, healScreen.color.b, 0);
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManger>();
-        numberLivesImage = GameObject.Find("Stars").GetComponent<Image>();
+        numberLivesImage = GameObject.Find("Canvas/Stars").GetComponent<Image>();
         playerTransform = GameObject.Find("Player").GetComponent<Transform>();
+
+        // count the number of object with tag Enemy
+        numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        Debug.Log("Number of enemies: " + numEnemies);
+        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        scoreboardEndGame = GameObject.Find("CanvasGameEnd");
+
+        scoreboardEndGame.SetActive(false);
     }
 
+    void Start()
+    {
+
+    }
+
+    void showScoreboardEndGame()
+    {
+        scoreboardEndGame.SetActive(true);
+        // update image of scoreboard in CanvasEndGame/Stars
+
+        switch (numberOfLives)
+        {
+            case 3:
+                GameObject.Find("CanvasGameEnd/Stars").GetComponent<Image>().sprite  = Resources.Load<Sprite>("3-3");
+                break;
+            case 2:
+                GameObject.Find("CanvasGameEnd/Stars").GetComponent<Image>().sprite  = Resources.Load<Sprite>("2-3");
+                break;
+            case 1:
+               GameObject.Find("CanvasGameEnd/Stars").GetComponent<Image>().sprite  = Resources.Load<Sprite>("1-3");
+                break;
+            default:
+                GameObject.Find("CanvasGameEnd/Stars").GetComponent<Image>().sprite  = Resources.Load<Sprite>("0-3");
+                break;
+        }
+
+        GameObject.Find("CanvasGameEnd/Score").GetComponent<Text>().text = "Score: " + GameObject.Find("ScoreBoard/Text").GetComponent<Text>().text;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -51,6 +92,19 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(1);
         }
+
+        if (isWin() || isGameOver())
+        {
+            audioManager.StopMusic();
+            audioManager.PlayLoseEffect();
+            showScoreboardEndGame();
+        }
+
+        if (isDead())
+        {
+            Die();
+        }
+
 
         // if currentHealth < 30 then always show blood screen
         if (currentHealth / maxHealth < 0.3)
@@ -84,7 +138,7 @@ public class PlayerHealth : MonoBehaviour
     bool isDead()
     {
         // y corodinate of player is less than -100
-        return currentHealth <= 0 || playerTransform.position.y < -100;
+        return currentHealth <= 0 || playerTransform.position.y > 100 || playerTransform.position.y < -100;
     }
 
     public void UpdateUI()
@@ -114,10 +168,16 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }
     }
-
+    public void updateNumEnemies()
+    {
+        // numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        numEnemies--;
+        Debug.Log("Number of enemies: " + numEnemies);
+    }
     void redisplayLifes(){
 
         // change source image to display
+        Debug.Log("Number of lives change: " + numberOfLives);
         switch (numberOfLives)
         {
             case 3:
@@ -133,6 +193,15 @@ public class PlayerHealth : MonoBehaviour
                 numberLivesImage.sprite = Resources.Load<Sprite>("0-3");
                 break;
         }
+    }
+    bool isWin()
+    {
+        return numEnemies <= 0;
+    }
+
+    bool isGameOver()
+    {
+        return numberOfLives <= 0;
     }
     private void Die()
     {

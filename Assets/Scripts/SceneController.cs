@@ -27,6 +27,10 @@ public class SceneController : MonoBehaviour
         StartCoroutine(WaitAndLoad("Level 1", loadDelay));
     }
 
+    public void LoadGameEnd(){
+        StartCoroutine(WaitAndLoad("GameEnd", loadDelay));
+    }
+
     public void LoadMainMenu()
     {StartCoroutine(WaitAndLoad("Menu", loadDelay));
     }
